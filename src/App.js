@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Formulario from './componentes/Formulario';
+import Header from './componentes/Header/Header';
+import MiOrg from './componentes/MiOrg';
 
 function App() {
+
+  const [mostrarFormulario, actualizarMostrar] = useState(true)
+
+  const cambiarMostrar = () => {
+    actualizarMostrar(!mostrarFormulario)
+  }
+
+  
+  //Ternario --> condicion ? seMuestra : noSeMuestra
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      {mostrarFormulario === true ? <Formulario /> : <></>}
+      <MiOrg cambiarMostrar = {cambiarMostrar} />
     </div>
   );
 }
