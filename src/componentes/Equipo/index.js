@@ -4,16 +4,27 @@ import Colaborador from "../Colaborador"
 const Equipo = (props) => {
 
     const {colorSecundario, colorPrimario, titulo} = props.datos
+    const {colaboradores, eliminarColaborador} = props
 
-    return <section className="equipo" style={{backgroundColor: colorSecundario}}>
+    const obj = { backgroundColor: colorSecundario}
+
+    return <>
+    { colaboradores.length > 0 && <section className="equipo" style={obj}>
         <h3 style={{borderColor: colorPrimario}}>{titulo}</h3>
         <div className="colaboradores">
-            <Colaborador />
-            <Colaborador />
-            <Colaborador />
-            <Colaborador />
+            
+            {colaboradores.map((colaborador, index) => {
+                return <Colaborador 
+                datos={colaborador} 
+                key={index}
+                colorPrimario={colorPrimario}
+                eliminarColaborador={eliminarColaborador} 
+                />
+            })}
+            
         </div>
-    </section>
+    </section>}
+    </>
 }
 
 export default Equipo
