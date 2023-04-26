@@ -9,42 +9,47 @@ import Footer from './componentes/Footer';
 
 function App() {
 
-  const [mostrarFormulario, actualizarMostrar] = useState(true)
+  const [mostrarFormulario, actualizarMostrar] = useState(false)
   const [colaboradores, actualizarColaboradores] = useState([{
     
     id: uuid(),
     equipo: "Front End",
     foto: "https://github.com/harlandlohora.png",
     nombre: "Harland Lohora",
-    puesto: "Instructor"
+    puesto: "Instructor",
+    fav: true
   },
   {
     id: uuid(),
     equipo: "Programación",
     foto: "https://github.com/genesysaluralatam.png",
     nombre: "Genesys Rondón",
-    puesto: "Desarrolladora de software e instructora"
+    puesto: "Desarrolladora de software e instructora",
+    fav: false
   },
   {
     id: uuid(),
     equipo: "UX y Diseño",
     foto: "https://github.com/JeanmarieAluraLatam.png",
     nombre: "Jeanmarie Quijada",
-    puesto: "Instructora en Alura Latam"
+    puesto: "Instructora en Alura Latam",
+    fav: false
   },
   {
     id: uuid(),
     equipo: "Programación",
     foto: "https://github.com/christianpva.png",
     nombre: "Christian Velasco",
-    puesto: "Head de Alura e Instructor"
+    puesto: "Head de Alura e Instructor",
+    fav: false
   },
   {
     id: uuid(),
     equipo: "Innovación y Gestión",
     foto: "https://github.com/JoseDarioGonzalezCha.png",
     nombre: "Jose Gonzalez",
-    puesto: "Dev FullStack"
+    puesto: "Dev FullStack",
+    fav: false
   }])
 
   const [equipos, actualizarEquipos] = useState([
@@ -126,13 +131,24 @@ function App() {
 
     actualizarEquipos(equiposActualizados)
   }
+
+  //Crear Equipo
+  const crearEquipo = (nuevoEquipo) => {
+    console.log(nuevoEquipo)
+    actualizarEquipos([...equipos, {...nuevoEquipo, id: uuid()}])
+  }
+
+  //Like
+  const like = (id) => {
+    console.log("Like", id)
+  }
    
   //Ternario --> condicion ? seMuestra : noSeMuestra
   return (
     <div>
       <Header />
 
-      {mostrarFormulario === true ? <Formulario equipos={equipos.map((equipo) => equipo.titulo)} registrarColaborador={registrarColaborador}/> : <></>}
+      {mostrarFormulario === true ? <Formulario equipos={equipos.map((equipo) => equipo.titulo)} registrarColaborador={registrarColaborador} crearEquipo={crearEquipo}/> : <></>}
 
       <MiOrg cambiarMostrar = {cambiarMostrar} />
 
@@ -142,6 +158,7 @@ function App() {
       colaboradores={colaboradores.filter(colaborador => colaborador.equipo === equipo.titulo)}
       eliminarColaborador={eliminarColaborador}
       actualizarColor={actualizarColor}
+      like={like}
       />)}
 
       <Footer/>
